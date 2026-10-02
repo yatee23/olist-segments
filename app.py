@@ -162,37 +162,41 @@ def _cluster_col(cols):
 
 
 def _discover_csv():
-    """Find customer data in the folder. Uses one CSV with ids + cluster labels, or joins a
-    features CSV with a separate labels CSV (on customer_unique_id, or by row order)."""
+    """Find customer data in the app folder. The labels file is the CSV with a cluster column;
+    the features file is the other CSV with the most columns. They are joined on
+    customer_unique_id, or by row order if that is not possible."""
     if CSV_PATH.exists():
         return pd.read_csv(CSV_PATH), CSV_PATH.name
-    files = sorted(set(APP_DIR.glob("*.csv")) | set((APP_DIR / "data").glob("*.csv")))
+    files = sorted({f for d in (APP_DIR, APP_DIR / "data") for pat in ("*.csv", "*.csv.gz") for f in d.glob(pat)})
     heads = {}
     for f in files:
         try:
             heads[f] = list(pd.read_csv(f, nrows=0).columns)
-        except Exception:
-            pass
-    labelled = [f for f, cols in heads.items() if _cluster_col(cols)]
-    features = [f for f, cols in heads.items() if ID_COL in cols]
-    # single file with everything, the one with the most columns wins
-    full = [f for f in labelled if ID_COL in heads[f]]
-    if full:
-        best = max(full, key=lambda f: len(heads[f]))
-        if len(heads[best]) > 5 or not [f for f in features if f != best]:
-            return pd.read_csv(best), best.name
-    if labelled and features:
-        lab_f = min(labelled, key=lambda f: len(heads[f]))
-        feat_f = max([f for f in features if f != lab_f] or features, key=lambda f: len(heads[f]))
-        feats, labs = pd.read_csv(feat_f), pd.read_csv(lab_f)
-        ccol = _cluster_col(labs.columns)
-        if ID_COL in labs.columns:
-            merged = feats.merge(labs[[ID_COL, ccol]], on=ID_COL, how="inner")
+        except Exception as e:
+            print(f"Could not read {f.name}: {e}")
+    labelled = [f for f in heads if _cluster_col(heads[f])]
+    if not labelled:
+        return None, None
+    lab_f = min(labelled, key=lambda f: len(heads[f]))
+    others = [f for f in heads if f != lab_f]
+    if not others:
+        return pd.read_csv(lab_f), lab_f.name
+    feat_f = max(others, key=lambda f: len(heads[f]))
+    if len(heads[lab_f]) >= len(heads[feat_f]):
+        return pd.read_csv(lab_f), lab_f.name
+    feats, labs = pd.read_csv(feat_f), pd.read_csv(lab_f)
+    ccol = _cluster_col(labs.columns)
+    feats = feats.drop(columns=[c for c in feats.columns if c.lower() == ccol.lower()])
+    if ID_COL in labs.columns and ID_COL in feats.columns:
+        merged = feats.merge(labs[[ID_COL, ccol]].drop_duplicates(ID_COL), on=ID_COL, how="inner")
+        if len(merged) > 0.9 * len(labs):
             return merged, f"{feat_f.name} + {lab_f.name}"
-        if len(labs) == len(feats):
-            feats[ccol] = labs[ccol].values
-            return feats, f"{feat_f.name} + {lab_f.name} (joined by row order)"
-    return None, None
+    if len(labs) == len(feats):
+        feats[ccol] = labs[ccol].values
+        if ID_COL not in feats.columns and ID_COL in labs.columns:
+            feats[ID_COL] = labs[ID_COL].values
+        return feats, f"{feat_f.name} + {lab_f.name} (joined by row order)"
+    return labs, f"{lab_f.name} (could not join {feat_f.name})"
 
 
 @st.cache_data
@@ -392,6 +396,10 @@ def page_compare():
     held = present(df, HELD_OUT)
     include_held = st.toggle("Include held-out variables (not used in clustering)", value=False)
     use = {**feats, **(held if include_held else {})}
+    if not use:
+        st.warning("The loaded customer file has cluster labels but no feature columns, so there is nothing "
+                   "to compare. Check the sidebar to see which files were loaded.")
+        return
     top_n = st.slider("Features shown", 5, len(use), min(12, len(use)))
 
     means = df.groupby("cluster")[list(use)].mean().reindex(clusters)
