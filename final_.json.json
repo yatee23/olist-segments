@@ -1,0 +1,212 @@
+{
+  "0": {
+    "interpretation": {
+      "segment_label": "Repeat Multi-Item Buyers With Multiple Orders",
+      "behavioral_profile": "This segment places a median of 2 orders per customer, against 1 for all customers, and buys a mean of 2.98 items compared with 1.18 overall. Their total order value runs higher too, with a median of R$ 238.04 versus R$ 107.95 overall. Home & Living is more common here, making up 42% of customers in this segment against 32% overall (lift 1.32). Payment tends toward credit card (80% versus 77% overall) with somewhat more use of vouchers (7% versus 4% overall) and boleto (24% versus 20% overall), and typical items are a bit heavier and larger, with a median weight of 850g against 700g overall and a median length of 27.5cm against 25.0cm overall.",
+      "critical_insight": "The strongest separating feature is order count, with a cluster median of 2 orders per customer against 1 for all customers. Since this segment already tends to place more than one order, a point-of-purchase offer such as free shipping above a set basket value on a second order could encourage combining purchases into fewer, larger orders.",
+      "held_out_outcomes": "These review, delay and lateness measures were held out of clustering. This segment sits close to the overall base on all held-out outcomes, with no differences reaching the reportable threshold."
+    },
+    "recommendation": {
+      "campaign_strategies": [
+        {
+          "lever": "freight cost or free-shipping threshold",
+          "channel": "email",
+          "offer": "free shipping above a set basket value when combining items into a single order",
+          "message_angle": "Encourage consolidating multiple wanted items into one larger order to save on shipping, appealing to a segment already placing a median of 2 orders per customer against 1 overall.",
+          "evidence": "n_orders cluster_median 2.0 vs overall_median 1.0; freight_value_R$ cluster_mean R$ 56.24 vs overall_mean R$ 23.60"
+        },
+        {
+          "lever": "instalments",
+          "channel": "app push notification",
+          "offer": "payment in several instalments highlighted at checkout for larger baskets",
+          "message_angle": "Make it easy to spread payment for a bigger combined order, matching this segment's higher typical order value.",
+          "evidence": "max_installments cluster_mean 4.04 vs overall_mean 2.94; customer_total_order_value_R$ cluster_median R$ 238.04 vs overall_median R$ 107.95"
+        },
+        {
+          "lever": "product category",
+          "channel": "onsite banner / category page",
+          "offer": "curated bundles of Home & Living items for a single order",
+          "message_angle": "Highlight Home & Living pieces that pair well together, since this category is more common here than in the base.",
+          "evidence": "Home & Living share_of_cluster 42% vs overall_share 32%, lift 1.32"
+        }
+      ],
+      "tone_positioning": "Speak to these customers as practical, multi-item shoppers who are already comfortable placing more than one order. Keep the tone efficient and value-focused, emphasizing convenience and savings rather than urgency.",
+      "operational_note": "Because typical items here run a bit heavier and larger (median 850g and 27.5cm length against 700g and 25.0cm overall), confirm that any bundling or free-shipping threshold offer still works with standard freight handling for bulkier packages. Also account for the somewhat higher boleto and voucher usage in this segment when designing payment-linked offers."
+    }
+  },
+  "1": {
+    "interpretation": {
+      "segment_label": "High Freight Ratio Small Item Buyers",
+      "behavioral_profile": "This segment carries a freight ratio of 0.37 (median), well above the overall median of 0.18, meaning shipping cost eats up a much larger share of order value. Their items are small, with a median weight of 250g against an overall median of 700g, and median dimensions of 19cm length, 15cm width and 8cm height, all below the overall medians of 25cm, 20cm and 13cm. Total order value per customer is lower too, at a median of R$ 47.29 against R$ 107.95 overall. 33% of customers in this segment buy Tech products, against 16% of all customers, making it the most common category here.",
+      "critical_insight": "The strongest separating feature is freight ratio, with this segment's items costing a median of 0.37 of order value in freight against 0.18 overall. At checkout, offering free or discounted shipping above a set basket value could help offset the disproportionate freight burden these customers face on small, lower-value items.",
+      "held_out_outcomes": "These variables were held out of clustering. On review score, delay measures and late order rate, this segment sits close to the overall base, with no reportable differences."
+    },
+    "recommendation": {
+      "campaign_strategies": [
+        {
+          "lever": "freight cost or free-shipping threshold",
+          "channel": "email and checkout banner",
+          "offer": "free shipping above a set basket value, or a flat discounted shipping rate for small items",
+          "message_angle": "Acknowledge that shipping can feel like a large part of the cost on smaller items, and highlight ways to reduce that burden by adding to the basket.",
+          "evidence": "freight_ratio 0.37 median vs 0.18 overall, item_weight_g 250 median vs 700 overall"
+        },
+        {
+          "lever": "product category",
+          "channel": "app push notification and category landing page",
+          "offer": "bundle suggestions pairing small tech accessories to raise basket value",
+          "message_angle": "Speak directly to tech shoppers with practical bundle ideas that make each shipment more worthwhile.",
+          "evidence": "broad_category_Tech share_of_cluster 33% vs 16% overall, lift 2.08"
+        },
+        {
+          "lever": "instalments",
+          "channel": "email and SMS",
+          "offer": "payment in several instalments framed as a way to spread out even smaller purchases",
+          "message_angle": "Make clear that instalment payment is available even for lower-value orders, keeping the option visible rather than assuming it is only for larger baskets.",
+          "evidence": "max_installments cluster_mean 1.78 vs 2.94 overall, customer_total_order_value_R$ median R$ 47.29 vs R$ 107.95 overall"
+        }
+      ],
+      "tone_positioning": "Keep the tone practical and cost-aware, focused on making small purchases feel worthwhile rather than positioning the segment as budget-limited. Avoid any language that frames these customers by income or status.",
+      "operational_note": "Since this segment's items are small and lower in per-item price, monitor whether free-shipping thresholds are set at a level that is realistically reachable within a session, given the lower median order value of R$ 47.29 against R$ 107.95 overall. Confirm that instalment options display correctly for lower-value baskets at checkout."
+    }
+  },
+  "2": {
+    "interpretation": {
+      "segment_label": "Recent Purchasers From Distant Sellers",
+      "behavioral_profile": "This segment shows a recency of 133 days (median) against an overall median of 223 days, meaning their purchases are more recent than the typical customer. Sellers ship from a median distance of 501 km, against an overall median of 436 km. 35% of customers in this segment bought Home & Living items, against 31% of all customers. Items purchased tend to be heavier, with a median item weight of 1050 g against an overall median of 700 g, and slightly larger, with a median length of 27 cm against 25 cm overall and a median height of 15 cm against 13 cm overall.",
+      "critical_insight": "The strongest separating feature is recency_days, with this segment's median at 133 days against an overall median of 223 days. Since these customers are transacting more recently, timing outreach around post-purchase category recommendations in Home & Living could capture continued interest while it is fresh.",
+      "held_out_outcomes": "These variables were held out of clustering. The segment's late order rate is 10% against 8% for all customers (lift 1.18), while review score, delivery delay and other measures sit close to the overall base."
+    },
+    "recommendation": {
+      "campaign_strategies": [
+        {
+          "lever": "seller locality",
+          "channel": "email",
+          "offer": "highlight trusted sellers shipping from farther regions with clear delivery expectations",
+          "message_angle": "Reassure customers that items from distant sellers arrive as expected, since these purchases travel a median distance of 501 km against 436 km overall",
+          "evidence": "seller_distance_km cluster_median 500.56 vs overall_median 436.12"
+        },
+        {
+          "lever": "product category",
+          "channel": "push notification",
+          "offer": "feature Home & Living items in post-purchase recommendations",
+          "message_angle": "Suggest complementary Home & Living products, since 35% of customers in this segment bought in this category against 31% of all customers",
+          "evidence": "top_broad_categories Home & Living share_of_cluster 0.349 vs overall_share 0.315, lift 1.11"
+        },
+        {
+          "lever": "freight cost or free-shipping threshold",
+          "channel": "on-site banner",
+          "offer": "free shipping above a set basket value for heavier or bulkier items",
+          "message_angle": "Address the practical cost of shipping larger items by framing a shipping incentive tied to basket size",
+          "evidence": "item_weight_g cluster_median 1050 vs overall_median 700, item_length_cm cluster_median 27 vs overall_median 25, item_height_cm cluster_median 15 vs overall_median 13"
+        }
+      ],
+      "tone_positioning": "Speak in a warm, practical tone that acknowledges these customers have purchased recently and focuses on continuing that momentum with relevant home-focused suggestions. Avoid urgency language, since the segment is defined by recency rather than any signal of disengagement.",
+      "operational_note": "Because these purchases involve heavier and larger items shipped from sellers farther away on average, confirm that fulfillment and freight partners can support these shipment sizes and distances before scaling any category-specific campaign."
+    }
+  },
+  "3": {
+    "interpretation": {
+      "segment_label": "High-Installment Big-Ticket Shoppers",
+      "behavioral_profile": "Customers in this segment spend a median R$ 246.61 per customer on orders, against R$ 107.95 for all customers, and pay with credit card on 100% of purchases versus 77% overall. They lean toward Home & Living (39% of customers in this segment, against 32% overall, lift 1.22) and Personal Care & Style (26%, against 21% overall, lift 1.21). Their items are physically larger than average, with a median weight of 1800g against 700g overall, and median length of 31cm against 25cm overall. Freight makes up a smaller share of order value here, with a median freight ratio of 0.10 against 0.18 overall.",
+      "critical_insight": "The strongest separating trait is installment count, with a mean of 8.5 max installments in this segment against 2.94 overall. At checkout, marketing can highlight payment in several instalments for higher-value baskets to match how this segment already spreads out payment.",
+      "held_out_outcomes": "These variables were held out of clustering. This segment sits close to the overall base on review score, delay measures and late order rate, with no differences reaching the reportable threshold."
+    },
+    "recommendation": {
+      "campaign_strategies": [
+        {
+          "lever": "instalments",
+          "channel": "Email and app push at checkout",
+          "offer": "Payment in several instalments highlighted for higher-value baskets",
+          "message_angle": "Show the per-instalment breakdown upfront for big-ticket Home & Living and Personal Care & Style items, so the total spend feels manageable.",
+          "evidence": "max_installments mean 8.5 vs 2.94 overall, customer_total_order_value_R$ median R$ 246.61 vs R$ 107.95 overall"
+        },
+        {
+          "lever": "product category",
+          "channel": "Onsite category banners and email",
+          "offer": "Curated bundles within Home & Living and Personal Care & Style",
+          "message_angle": "Feature larger-format home and personal care items with clear sizing information, reflecting this segment's preference for bigger, sturdier products.",
+          "evidence": "Home & Living 39% of customers vs 32% overall (lift 1.22), Personal Care & Style 26% vs 21% overall (lift 1.21), item_weight_g median 1800g vs 700g overall"
+        },
+        {
+          "lever": "freight cost or free-shipping threshold",
+          "channel": "Checkout page messaging",
+          "offer": "Free shipping above a set basket value",
+          "message_angle": "Reassure shoppers that freight is a smaller part of their order cost here, encouraging them to add another item to reach a free-shipping basket value.",
+          "evidence": "freight_ratio median 0.10 vs 0.18 overall"
+        }
+      ],
+      "tone_positioning": "Speak to these shoppers as considered, higher-basket buyers who plan larger home and personal care purchases. Keep the tone practical and reassuring about payment flexibility rather than urgent or discount-driven.",
+      "operational_note": "Confirm that instalment options and free-shipping thresholds are configured for larger, heavier items before launch, since this segment buys bigger-format goods (median weight 1800g against 700g overall) and pays entirely by credit card. Watch that category banners reflect item size accurately given the larger median length, width and height in this segment."
+    }
+  },
+  "4": {
+    "interpretation": {
+      "segment_label": "Long-Dormant Holiday-Season Shoppers",
+      "behavioral_profile": "This segment buys somewhat heavier and larger items than average, with a median item weight of 1200g against an overall median of 700g, and median dimensions of 30cm length, 22cm width and 15cm height versus overall medians of 25cm, 20cm and 13cm. 36% of customers in this segment favor Home & Living, close to the 32% overall share, while Leisure & Family reaches 22% of customers here against 18% overall. Payment mix leans slightly more toward boleto, used by 25% of customers here versus 20% overall. Item price and freight per item are close to the overall base, with a median item price of R$ 99.99 against an overall median of R$ 89.90.",
+      "critical_insight": "The strongest separating feature is recency, with a mean of 380 days since last purchase in this segment against 243 days overall. Purchase timing was a clustering input, so this difference partly reflects how the segments were built, and at the point of purchase this supports messaging that highlights free shipping above a set basket value to encourage a next order among customers who have not purchased recently.",
+      "held_out_outcomes": "These variables were held out of clustering. This segment sits close to the overall base on all held-out outcomes, including review score (4.11 versus 4.10 overall) and late order rate (7% versus 8% overall)."
+    },
+    "recommendation": {
+      "campaign_strategies": [
+        {
+          "lever": "seasonal timing",
+          "channel": "email",
+          "offer": "a holiday-season promotion timed around the shopping period this segment favors",
+          "message_angle": "Frame the message around holiday-season shopping and gift ideas for the home, since this segment shops the holiday period more than most.",
+          "evidence": "is_holiday_season mean 0.39 vs 0.24 overall; holiday_season_rate 39% vs 24% overall (lift 1.63); purchase timing was a clustering input, so this difference partly reflects how the segments were built."
+        },
+        {
+          "lever": "product category",
+          "channel": "app push notification",
+          "offer": "a curated Home & Living and Leisure & Family showcase",
+          "message_angle": "Highlight home and leisure items to match the categories this segment favors, using practical, straightforward language about everyday use.",
+          "evidence": "Home & Living 36% of customers vs 32% overall (lift 1.14); Leisure & Family 22% of customers vs 18% overall (lift 1.2)"
+        },
+        {
+          "lever": "freight cost or free-shipping threshold",
+          "channel": "SMS",
+          "offer": "free shipping above a set basket value",
+          "message_angle": "Offer a shipping incentive to encourage a next order among customers who have not purchased in a while, given the items this segment buys tend to be heavier and larger.",
+          "evidence": "recency_days mean 380 vs 243 overall; item_weight_g median 1200g vs 700g overall; item_length_cm median 30cm vs 25cm overall"
+        }
+      ],
+      "tone_positioning": "Keep the tone practical and welcoming rather than urgent, acknowledging that these customers have not purchased in some time without implying anything negative about their habits. Emphasize convenience and value on everyday home and leisure items rather than scarcity or pressure.",
+      "operational_note": "Because this segment buys heavier and larger items (median weight 1200g against 700g overall), confirm freight pricing and shipping thresholds account for these dimensions before setting any shipping offer. Also note boleto use is somewhat higher here (25% of customers versus 20% overall), so ensure boleto remains a visible payment option in any campaign checkout flow."
+    }
+  },
+  "5": {
+    "interpretation": {
+      "segment_label": "Nearby Sellers, Small Local Orders",
+      "behavioral_profile": "This segment buys close to home, with a median seller distance of 28.48 km against an overall median of 436.12 km. 25% of customers in this segment shop Personal Care & Style items, against 21% of all customers, while Home & Living, the top category overall, appears less often here (24% versus 32%). Items are smaller than average, with a median weight of 400g against an overall median of 700g, and median dimensions of 20cm length, 17cm width and 11cm height, each below the overall medians of 25cm, 20cm and 13cm. Spend is lighter too, with a median total order value of R$ 63.77 against an overall median of R$ 107.95, and payment method usage looks close to the overall mix, with 76% using credit card against 77% overall.",
+      "critical_insight": "The strongest separating factor is seller distance, with a cluster median of 28.48 km against an overall median of 436.12 km, meaning these customers buy from sellers located much closer to them. At checkout, highlighting fast local delivery or in-network seller availability could reinforce the value of this shorter shipping distance.",
+      "held_out_outcomes": "These variables were held out of clustering. This segment's late order rate sits at 7% against an overall rate of 8% (lift 0.82), while review scores, delivery delay and other timing measures sit close to the overall base."
+    },
+    "recommendation": {
+      "campaign_strategies": [
+        {
+          "lever": "seller locality",
+          "channel": "email and app push",
+          "offer": "highlight local seller availability and faster local delivery at checkout",
+          "message_angle": "Emphasize that items ship from sellers much closer to home, so delivery feels quick and local",
+          "evidence": "seller_distance_km cluster median 28.48 km vs overall median 436.12 km"
+        },
+        {
+          "lever": "product category",
+          "channel": "app onsite banners and email",
+          "offer": "curated bundles of Personal Care & Style items from nearby sellers",
+          "message_angle": "Feature Personal Care & Style picks since these are more common in this segment than overall",
+          "evidence": "Personal Care & Style share_of_cluster 25% vs overall_share 21%, lift 1.16"
+        },
+        {
+          "lever": "freight cost or free-shipping threshold",
+          "channel": "email",
+          "offer": "free shipping above a set basket value for orders from nearby sellers",
+          "message_angle": "Position the shorter shipping distance as a way to make a low freight cost even lighter",
+          "evidence": "freight_value_R$ cluster median R$ 9.12 vs overall median R$ 17.60"
+        }
+      ],
+      "tone_positioning": "Use a warm, practical tone that emphasizes convenience and proximity rather than scale or luxury, since this segment shops smaller items from nearby sellers at lower order values.",
+      "operational_note": "Since these orders involve smaller, lighter items from nearby sellers, packaging and shipping workflows can stay lightweight rather than optimized for bulk or long-haul freight. Confirm that any local-delivery messaging matches actual seller distance at the time the campaign runs, since seller networks can shift."
+    }
+  }
+}
